@@ -5,7 +5,7 @@ This repository is for a web application that converts bvh files into VRM animat
 # Demo
 
 A demo is available on GitHub Pages:
-https://vrm-c.github.io/bvh2vrma/
+https://fluentt-ai.github.io/bvh2vrma/
 
 # Important Notes
 
