@@ -1,36 +1,38 @@
 # bvh to VRMA
 
-このリポジトリは bvh ファイルを VRMアニメーション ファイルに変換する web アプリケーションのリポジトリです。
+This repository is for a web application that converts bvh files into VRM animation files.
 
-# デモ
+# Demo
 
-GitHub Pages でデモを公開しています。
+A demo is available on GitHub Pages:
 https://vrm-c.github.io/bvh2vrma/
 
-# 注意点
+# Important Notes
 
-- 変換結果を保証するものではありません。入力された bvh ファイルによっては失敗することがあります。
+- Conversion results are not guaranteed. The conversion may fail depending on the input bvh file.
 
-# 開発を行うには
+# Development
 
-ローカル環境で開発を行うにはこのリポジトリをクローンしてください。
+To develop locally, clone this repository.
 
 ```
 git clone https://github.com/vrm-c/bvh2vrma
 ```
 
-必要なパッケージをインストールの上、開発用の web サーバーの起動を行ってください。
+Install the necessary packages and start the development web server.
 
 ```
 yarn install && yarn dev
 ```
 
-# VRMアニメーション
+# VRM Animation
 
-VRMアニメーションは、VRMで定義された人型モデルに対するアニメーションを記述するための glTF 拡張です。
-VRMアニメーションファイルについての詳細は[Webサイト](https://vrm.dev/vrma/)をご覧ください。
-また、詳しい仕様に関しては別途[仕様書](https://github.com/vrm-c/vrm-specification/blob/master/specification/VRMC_vrm_animation-1.0/README.ja.md)をお読みいただけますと幸いです。
+VRM Animation is a glTF extension for describing animations for humanoid models defined in VRM. For more details about VRM animation files, please visit the website. You can also read the specification document for detailed specifications.
 
-# ライセンス
+https://vrm.dev/vrma/
 
-- [MIT ライセンス](./LICENSE.txt)
+https://github.com/vrm-c/vrm-specification/blob/master/specification/VRMC_vrm_animation-1.0/README.ja.md
+
+# License
+
+- [MIT License](./LICENSE.txt)
