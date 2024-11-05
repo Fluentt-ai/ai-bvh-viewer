@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: var(--charcoal-text1);
+  background: var(--charcoal-background2);
+}
