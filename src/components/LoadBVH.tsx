@@ -11,6 +11,7 @@ interface FileBlob {
 }
 interface LoadBVHProps {
   setBlobURL: Dispatch<SetStateAction<string | null>>;
+  setAudioURL: Dispatch<SetStateAction<string | null>>;
   armSpread: number;
 }
 const LoadBVH = (props: LoadBVHProps) => {
@@ -21,6 +22,8 @@ const LoadBVH = (props: LoadBVHProps) => {
   const bvhLoader = new BVHLoader();
   const setBlobURL = props.setBlobURL;
   const [bvhFile, setBvhFile] = useState<File | null>(null);
+  const [audioFile, setAudioFile] = useState<File | null>(null);
+  const setAudioURL = props.setAudioURL;
 
   const initializeState = () => {
     setError('');
@@ -29,6 +32,8 @@ const LoadBVH = (props: LoadBVHProps) => {
     vrmaBlob.current = null;
     setBlobURL(null);
     setBvhFile(null);
+    setAudioFile(null);
+    setAudioURL(null);
   };
 
   const changeExtension = (fileName: string, newExtension: string) => {
@@ -112,6 +117,26 @@ const LoadBVH = (props: LoadBVHProps) => {
     input.click();
   };
 
+  const handleAudioUpload = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'audio/*';
+
+    input.addEventListener('change', () => {
+      if (input.files && input.files.length > 0 && vrmaBlob.current) {
+        const file = input.files[0];
+        setAudioFile(file);
+        const url = URL.createObjectURL(file);
+        setAudioURL(url);
+        const currentBlobURL = URL.createObjectURL(vrmaBlob.current.blob);
+        setBlobURL(null);
+        setTimeout(() => setBlobURL(currentBlobURL), 0);
+      }
+    });
+
+    input.click();
+  };
+
   return (
     <div className="flex items-center justify-center h-full w-full border-dashed border-2 border-[--charcoal-text4] text-center rounded-16 typography-20">
       {nowConvert ? (
@@ -132,7 +157,12 @@ const LoadBVH = (props: LoadBVHProps) => {
               Download File
             </Button>
           </div>
-          <div className="flex justify-center ">
+          <div className="pb-8">
+            <Button onClick={handleAudioUpload} variant="Default">
+              {audioFile ? 'Change Audio' : 'Add Audio'}
+            </Button>
+          </div>
+          <div className="flex justify-center">
             <button className="text-link1 typography-14" onClick={initializeState}>
               Convert another file
             </button>

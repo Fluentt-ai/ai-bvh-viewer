@@ -21,7 +21,7 @@ const ModalWrapper = (props: ModalWrapperProps) => {
             <ul className="list-disc pl-24">
               <li>This is an application that converts BVH files to VRM animation files (VRMA).</li>
               <li>
-                For more details about VRM animation files, please visit the
+                For more details about VRM animation files, please visit the{' '}
                 <a
                   className="text-link1"
                   href="https://vrm.dev/vrma/"
@@ -34,7 +34,7 @@ const ModalWrapper = (props: ModalWrapperProps) => {
               </li>
               <li>This site does not upload the input BVH files to any server.</li>
               <li>
-                This site is licensed under MIT. The repository link is
+                This site is licensed under MIT. The repository link is{' '}
                 <a
                   className="text-link1"
                   href="https://github.com/vrm-c/bvh2vrma"
@@ -50,7 +50,7 @@ const ModalWrapper = (props: ModalWrapperProps) => {
           <div className="py-24 text-brand typography-20">Usage Notes</div>
           <ul className="pl-24 list-disc">
             <li>
-              For detailed specifications of VRM animation files (VRMA), please refer to
+              For detailed specifications of VRM animation files (VRMA), please refer to{' '}
               <a
                 className="text-link1"
                 href="https://github.com/vrm-c/vrm-specification/blob/master/specification/VRMC_vrm_animation-1.0/README.ja.md"

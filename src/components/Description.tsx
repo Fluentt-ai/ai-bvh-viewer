@@ -14,7 +14,7 @@ const Description = (props: DescriptionProps) => {
         Convert your bvh files to VRMA files.
       </div>
       <div className="text-center typography-14 sm:typography-16">
-        Before using the service, please check the
+        Before using the service, please check the{' '}
         <button
           className="text-link1"
           onClick={() => {

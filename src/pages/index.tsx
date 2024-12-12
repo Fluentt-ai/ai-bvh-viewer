@@ -7,6 +7,7 @@ import { useOverlayTriggerState } from 'react-stately';
 
 export default function Home() {
   const [blobURL, setBlobURL] = useState<string | null>(null);
+  const [audioURL, setAudioURL] = useState<string | null>(null);
   const [armSpread, setArmSpread] = useState<number>(0);
   const [tempArmSpread, setTempArmSpread] = useState<number>(0);
   const modalState = useOverlayTriggerState({});
@@ -30,7 +31,11 @@ export default function Home() {
                 <Description state={modalState} />
                 <div className="flex justify-center">
                   <div className="w-full lg:h-[296px] h-[268px]">
-                    <LoadBVH setBlobURL={setBlobURL} armSpread={armSpread} />
+                    <LoadBVH 
+                      setBlobURL={setBlobURL} 
+                      setAudioURL={setAudioURL}
+                      armSpread={armSpread} 
+                    />
                   </div>
                 </div>
                 <div className="mt-4">
@@ -50,7 +55,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="max-lg:py-24 flex justify-center">
-                <VrmViewer blobURL={blobURL} />
+                <VrmViewer blobURL={blobURL} audioURL={audioURL} />
               </div>
             </>
           ) : (
@@ -59,7 +64,11 @@ export default function Home() {
                 <Description state={modalState} />
                 <div className="flex justify-center">
                   <div className="lg:w-[600px] lg:h-[296px] h-[268px] w-[358px] sm:w-[60vw]">
-                    <LoadBVH setBlobURL={setBlobURL} armSpread={armSpread} />
+                    <LoadBVH 
+                      setBlobURL={setBlobURL} 
+                      setAudioURL={setAudioURL}
+                      armSpread={armSpread} 
+                    />
                   </div>
                 </div>
                 <div className="mt-4">

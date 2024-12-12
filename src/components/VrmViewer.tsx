@@ -8,6 +8,7 @@ import { loadVRMAnimation } from '@/lib/VRMAnimation/loadVRMAnimation';
 
 interface VRMViewerProps {
   blobURL: string | null;
+  audioURL: string | null;
 }
 
 export default function VrmViewer(props: VRMViewerProps) {
@@ -16,6 +17,8 @@ export default function VrmViewer(props: VRMViewerProps) {
   const [isPlaying, setPlaying] = useState(false);
   const refDivProgress = useRef<HTMLDivElement>(null);
   const blobURL = props.blobURL;
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const audioURL = props.audioURL;
 
   const canvasRef = useCallback(
     async (canvas: HTMLCanvasElement) => {
@@ -31,6 +34,7 @@ export default function VrmViewer(props: VRMViewerProps) {
   const pauseAnimation = useCallback(() => {
     if (viewer.model) {
       viewer.model.pauseAction();
+      audioRef.current?.pause();
       setPlaying(false);
     }
   }, []);
@@ -38,6 +42,11 @@ export default function VrmViewer(props: VRMViewerProps) {
   const playAnimation = useCallback(() => {
     if (viewer.model) {
       viewer.model.playAction();
+      if (audioRef.current && !isNaN(audioRef.current.duration)) {
+        const progress = viewer.model.progress;
+        audioRef.current.currentTime = progress * audioRef.current.duration;
+        audioRef.current.play();
+      }
       setPlaying(true);
     }
   }, []);
@@ -47,8 +56,11 @@ export default function VrmViewer(props: VRMViewerProps) {
     const rect = target.getBoundingClientRect();
 
     const u = (event.clientX - rect.left) / rect.width;
-    console.log(event.clientX, rect.left, rect.width);
     viewer.model?.setProgress(u);
+    
+    if (audioRef.current) {
+      audioRef.current.currentTime = u * audioRef.current.duration;
+    }
   }, []);
 
   useEffect(() => {
@@ -75,6 +87,7 @@ export default function VrmViewer(props: VRMViewerProps) {
       <div className={'sm:w-[390px] w-[60vw] sm:h-[480px] h-[583px]'}>
         <canvas ref={canvasRef} className={'h-full w-full rounded-24 bg-[--charcoal-surface3]'}></canvas>
       </div>
+      <audio ref={audioRef} src={audioURL || undefined} loop />
       <div className="mt-[16px] flex gap-[16px] grow-0 w-full">
         <IconButton
           icon={isPlaying ? '24/PauseAlt' : '24/PlayAlt'}
