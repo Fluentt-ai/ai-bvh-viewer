@@ -82,6 +82,16 @@ export default function VrmViewer(props: VRMViewerProps) {
     }
   }, []);
 
+  useEffect(() => {
+    if (viewer.model) {
+      viewer.model.onLoopStart = () => {
+        if (audioRef.current) {
+          audioRef.current.currentTime = 0;
+        }
+      };
+    }
+  }, [viewer.model]);
+
   return (
     <div className="flex flex-col">
       <div className={'sm:w-[390px] w-[60vw] sm:h-[480px] h-[583px]'}>

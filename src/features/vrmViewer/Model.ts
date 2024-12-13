@@ -4,10 +4,17 @@ import { VRM, VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 import { VRMAnimation, createVRMAnimationClip } from '@pixiv/three-vrm-animation';
 
 export class Model {
-  public vrm?: VRM;
-  public mixer?: THREE.AnimationMixer;
+  public vrm: VRM | null;
+  public mixer: THREE.AnimationMixer | null;
   public helperRoot?: THREE.Group;
-  private currentAction?: THREE.AnimationAction;
+  public currentAction: THREE.AnimationAction | null;
+  public onLoopStart?: () => void;
+
+  constructor() {
+    this.vrm = null;
+    this.mixer = null;
+    this.currentAction = null;
+  }
 
   public async loadVRM(url: string): Promise<void> {
     const loader = new GLTFLoader();
@@ -48,9 +55,16 @@ export class Model {
   }
 
   public playAction() {
-    if (this.currentAction && this.mixer) {
+    if (this.currentAction) {
       this.currentAction.play();
-      this.currentAction.paused = false;
+      this.currentAction.clampWhenFinished = false;
+      this.currentAction.loop = THREE.LoopRepeat;
+      this.currentAction.repetitions = Infinity;
+      
+      this.currentAction.reset();
+      this.mixer?.addEventListener('loop', () => {
+        this.onLoopStart?.();
+      });
     }
   }
 
